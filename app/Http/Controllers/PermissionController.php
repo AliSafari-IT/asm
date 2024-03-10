@@ -32,8 +32,13 @@ class PermissionController extends Controller
     {
         $validatedData = $request->validate([
             'name' => 'required|unique:permissions|max:255',
-            'description' => 'required',
         ]);
+
+        $validatedData['slug'] = strtolower($validatedData['name']);
+
+        if (isset($validatedData['permissions'])) {
+            $validatedData['permissions'] = json_encode($validatedData['permissions']);
+        }
 
         $permission = Permission::create($validatedData);
 

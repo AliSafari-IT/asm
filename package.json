@@ -8,7 +8,7 @@
         "preview": "vite preview",
         "srv": "php artisan serve",
         "php:test": "php artisan test",
-        "php:migrate": "php artisan migrate",
+        "migrate": "php artisan migrate",
         "php:refresh": "php artisan migrate:refresh",
         "php:seed": "php artisan db:seed",
         "new:model": "./scripts/makeModel.sh",
