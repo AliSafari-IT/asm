@@ -14,7 +14,7 @@
             </x-slot>
         </div>
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
-           
+
 
 
             @if (session()->has('message'))
@@ -35,45 +35,17 @@
 
 
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div>
-                <!-- Happiness is not something readymade. It comes from your own actions. - Dalai Lama -->
+            <h2>Create Permission</h2>
 
+            <a href="{{ route('permissions.index') }}" class="btn btn-primary">Back</a>
+            @php 
+            $model = new \App\Models\Permission();
+            @endphp
 
-                <div>
-                    @if ($errors->any())
-                    <div class="alert alert-danger">
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                    @endif
+            <x-models-form :model="$model" actionType="create" :fields="['name' => ['label' => 'name', 'type' => 'text'], 'description' => ['label' => 'Description', 'type' => 'text']]" />
 
-                </div>
-                <h2>Create Permission</h2>
-                <a href="{{ route('permissions.index') }}" class="btn btn-primary">Back</a>
-
-                <form wire:submit.prevent="store">
-                    <div class="form-group">
-                        <label for="name">Name</label>
-                        <input type="text" class="form-control" id="name" wire:model="name">
-                        @error('name') <span class="text-danger">{{ $message }}</span> @enderror
-                    </div>
-                    <div class="form-group">
-                        <label for="description">Description</label>
-                        <input type="text" class="form-control" id="description" wire:model="description">
-                        @error('description') <span class="text-danger">{{ $message }}</span> @enderror
-                    </div>
-                    <div class="form-group">
-                        <label for="slug">Slug</label>
-                        <input type="text" class="form-control" id="slug" wire:model="slug">
-                        @error('slug') <span class="text-danger">{{ $message }}</span> @enderror
-                    </div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                </form>
-            </div>
         </div>
+
     </div>
 
 </x-app-layout>

@@ -30,9 +30,6 @@ Route::get('/home', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('home');
 
-Route::get('/permissions', function () {
-    return view('permissions');
-}) ->middleware(['auth', 'verified']) ->name('permissions');
 
 
 Route::middleware('auth')->group(function () {
@@ -67,4 +64,9 @@ Route::middleware('auth')->group(function () {
     // Define a resource route for permissions
     Route::resource('permissions', PermissionController::class);
 
+Route::middleware('auth')->group(function () {
+    // Define a resource route for permissions
+    Route::delete('permissions', [PermissionController::class, 'destroy']) ->name('permissions.destroy');
+
+});
 require __DIR__ . '/auth.php';
