@@ -50,7 +50,9 @@
                             Permission</a>
                     </div>
                     <!-- Show the permissions table -->
-                    <livewire:permissions-table />  
+                    <div>
+                        @include('permissions.index', ['permissions' => \App\Models\Permission::all()])
+                    </div> 
 
 
 

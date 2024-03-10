@@ -32,6 +32,7 @@ class PermissionController extends Controller
     {
         $validatedData = $request->validate([
             'name' => 'required|unique:permissions|max:255',
+            'description' => 'nullable|max:255',
         ]);
 
         $validatedData['slug'] = strtolower($validatedData['name']);
