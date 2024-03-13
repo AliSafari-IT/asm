@@ -2,17 +2,33 @@
     "private": true,
     "type": "module",
     "scripts": {
+        "srv": "php artisan serve",
         "dev": "vite",
+        "autoload": "./scripts/dump-autoload.sh",
+        "db_install": "./scripts/installDb.sh",
         "build": "vite build",
         "test": "vite test",
+        "lint": "eslint .",
+        "lint:fix": "eslint . --fix",
+        "format": "prettier --write .",
+        "format:check": "prettier --check .",
+        "clean": "rm -rf node_modules package-lock.json",
+        "clean:node": "rm -rf node_modules",
+        "clean:cache": "rm -rf node_modules/.cache",
+        "clean:modules": "rm -rf node_modules && rm -rf package-lock.json",
+        "clean:all": "npm run clean && npm run clean:node && npm run clean:cache && npm run clean:modules",
+        "build:prod": "cross-env NODE_ENV=production vite build",
+        "build:dev": "cross-env NODE_ENV=development vite build",
+        "watch": "vite build --watch",
+        "serve": "vite preview",
         "preview": "vite preview",
-        "srv": "php artisan serve",
         "php:test": "php artisan test",
         "migrate": "php artisan migrate",
         "php:refresh": "php artisan migrate:refresh",
         "php:seed": "php artisan db:seed",
         "new:model": "./scripts/makeModel.sh",
-        "new:controller": "./scripts/makeController.sh"
+        "new:controller": "./scripts/makeController.sh",
+        "new:lw": "./scripts/makeLivewire.sh"
     },
     "devDependencies": {
         "@tailwindcss/forms": "^0.5.2",
@@ -24,5 +40,9 @@
         "postcss": "^8.4.31",
         "tailwindcss": "^3.1.0",
         "vite": "^5.0.0"
+    },
+    "dependencies": {
+        "@fortawesome/fontawesome-free": "^6.5.1",
+        "sass": "^1.71.1"
     }
 }

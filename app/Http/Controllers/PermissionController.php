@@ -62,13 +62,14 @@ class PermissionController extends Controller
     {
         $validatedData = $request->validate([
             'name' => 'required|max:255',
-            'description' => 'required',
+            'description' => 'nullable',
         ]);
 
         Permission::whereId($id)->update($validatedData);
 
         return redirect()->route('permissions.index')->with('success', 'Permission updated successfully.');
     }
+
 
     /**
      * Remove the specified permission from the database.

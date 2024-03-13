@@ -51,15 +51,10 @@
                     </div>
                     <!-- Show the permissions table -->
                     <div>
-                        @include('permissions.index', ['permissions' => \App\Models\Permission::all()])
-                    </div> 
-
-
-
+                        @include('permissions.index', ['use_header' => false])
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-
-
 </x-app-layout>

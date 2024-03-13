@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
 use App\Models\Permission;
+use Illuminate\Validation\Rule;
+
 
 class Role extends Model
 {
@@ -22,15 +24,7 @@ class Role extends Model
         'is_admin',
         'is_public',
         'is_disabled',
-        'is_deleted',
-        'is_active',
-        'created_by',
-        'updated_by',
-        'deleted_by',
-        'created_ip',
-        'updated_ip',
-        'deleted_ip',
-        'created_at'
+        'is_active'
     ];
 
     public function getRouteKeyName()
@@ -61,6 +55,43 @@ class Role extends Model
     public function users()
     {
         return $this->belongsToMany(User::class);
+    }
+
+    // customize the validation rules
+    public function getRules()
+    {
+        // customize the validation rules
+        $customizedRules = [
+            'name' => 'required',
+            'description' => 'nullable',
+            'slug' => ['required', Rule::unique('permissions', 'slug')->ignore($this->id)],
+            'deleted_at' => 'nullable', // assuming it should be a nullable datetime field
+            'permissions' => 'nullable',
+            'is_default' => 'nullable',
+            'is_system' => 'nullable',
+            'is_admin' => 'nullable',
+            'is_public' => 'nullable',
+            'is_disabled' => 'nullable',
+            'is_active' => 'nullable',
+        ];
+
+        return $customizedRules;
+    }
+
+    public function getDefaultData()
+    {
+        return [
+            'name' => '',
+            'description' => '',
+            'slug' => '',
+            'permissions' => [],
+            'is_default' => false,
+            'is_system' => false,
+            'is_admin' => false,
+            'is_public' => false,
+            'is_disabled' => false,
+            'is_active' => true,
+        ];
     }
 
 }

@@ -1,11 +1,10 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\RoleController;
 use App\Http\Controllers\PermissionController;
-
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\UserController;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,8 +29,6 @@ Route::get('/home', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('home');
 
-
-
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -55,18 +52,18 @@ Route::middleware('auth')->group(function () {
 
 });
 
-    // Define a resource route for users
-    Route::resource('users', UserController::class);
+// Define a resource route for users
+Route::resource('users', UserController::class);
 
-    // Define a resource route for roles
-    Route::resource('roles', RoleController::class);
+// Define a resource route for roles
+Route::resource('roles', RoleController::class);
 
-    // Define a resource route for permissions
-    Route::resource('permissions', PermissionController::class);
+// Define a resource route for permissions
+Route::resource('permissions', PermissionController::class);
 
-Route::middleware('auth')->group(function () {
-    // Define a resource route for permissions
-    Route::delete('permissions', [PermissionController::class, 'destroy']) ->name('permissions.destroy');
+// Example route to show the delete confirmation page
+Route::get('/delete/{modelType}/{modelId}', function ($modelType, $modelId) {
+    return view('permissions.destroy', ['modelType' => $modelType, 'modelId' => $modelId]);
+})->name('delete.confirmation');
 
-});
 require __DIR__ . '/auth.php';
