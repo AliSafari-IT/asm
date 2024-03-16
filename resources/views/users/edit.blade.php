@@ -1,3 +1,17 @@
-<div>
-    <!-- Walk as if you are kissing the Earth with your feet. - Thich Nhat Hanh -->
-</div>
+<x-app-layout>
+    <div>
+        @php
+            $modelType = 'User';
+            $modelId = $id;    
+            $user = \App\Models\User::find($id);            
+            $instanceModel = $user;
+
+        @endphp
+        @isset($modelType, $modelId)
+            @livewire('edit-model-instance',  ['instanceModel' => $instanceModel, 'modelType' => $modelType, 'modelId' => $modelId]);
+        @else
+            {{-- Handle the case where variables are not set --}}
+            <p>Error: The required parameters are not available.</p>
+        @endisset
+    </div>
+</x-app-layout>

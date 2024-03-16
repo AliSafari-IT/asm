@@ -3,24 +3,35 @@
 namespace App\Livewire;
 
 use Livewire\Component;
+
 // Adjust based on your actual model
 
 class NewModelInstance extends Component
 {
-    public $permissionModel; // This will hold your model data for binding
+    public $permissionModel;
+    public $instanceModel;
     public $instance;
     protected $rules = [
         'permissionModel.*' => 'required', // Example rule, adjust according to your model's attributes
     ];
     public $data = [];
 
-    public function mount($permissionModel)
+    public function mount($permissionModel = null, $instanceModel = null)
     {
+        if (!auth()->check()) {
+            return redirect()->route('login');
+        }
+        $this->instanceModel = $instanceModel;
         $this->permissionModel = $permissionModel;
+        if ($permissionModel != null) {
+            $this->instance = $this->permissionModel;
+            $this->instance->fill($this->permissionModel->initialValues);
+        }
+        if ($instanceModel != null) {
+            $this->instance = $this->instanceModel;
+            $this->instance->fill($this->instanceModel->initialValues);
+        }
 
-        $this->instance = $this->permissionModel;
-
-        $this->instance->fill($this->permissionModel->initialValues);
         $this->instance->created_by = auth()->user()->id;
         $this->instance->updated_by = auth()->user()->id;
         $this->instance->created_at = now();
@@ -42,7 +53,7 @@ class NewModelInstance extends Component
 
         // Save logic here, e.g.,
         $this->instance->save();
-        \dd($this->instance);
+
         // Redirect or emit event after save
         return redirect()->route('permissions.index')->with('message', 'Permission created successfully.');
     }

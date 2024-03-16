@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('description')->nullable();
             $table->string('slug')->nullable();
-            $table->softDeletes();
+
             $table->boolean('is_default')->default(0);
             $table->boolean('is_system')->default(0);
             $table->boolean('is_admin')->default(0);
@@ -35,8 +35,21 @@ return new class extends Migration
             $table->boolean('is_pinned')->default(0);
             $table->boolean('is_movable')->default(1);
             $table->boolean('is_copyable')->default(1);
-            
+            $table->boolean('is_editable')->default(1);
+            $table->boolean('is_deletable')->default(1);
+            $table->boolean('is_importable')->default(1);
+            $table->boolean('is_exportable')->default(1);
+            $table->boolean('is_protected')->default(1);
+            $table->boolean('is_hidden')->default(0);
+            $table->boolean('is_printable')->default(1);
+            $table->boolean('is_required')->default(1);
+            $table->boolean('is_unique')->default(1);          
+           
             $table->timestamps();
+            $table->softDeletes();
+
+            $table->json('data')->nullable();
+            
         });
     }
 

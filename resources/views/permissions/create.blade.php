@@ -11,7 +11,6 @@
             $permissionModel->rules = $initialModel->getRules();
             $permissionModel->messages = $initialModel->getMessages();
 
-
         @endphp
     @livewire('new-model-instance', ['permissionModel' => $permissionModel, 'modelId' => null]);
     </div>

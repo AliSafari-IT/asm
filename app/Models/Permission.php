@@ -18,14 +18,11 @@ class Permission extends Model
     public $rules;
     public $messages;
 
-
-    protected $hidden = ['pivot'];
-   
+    protected $hidden = ['pivot'];   
 
     public function __construct()
     {
         $this->initialModel = new InitialPermission();
-
         $this->initialValues = $this->initialModel->getInitialValues();
         $this->fieldTypes = $this->initialModel->getFieldTypes();
         $this->rules = $this->initialModel->getRules();
@@ -121,6 +118,12 @@ class Permission extends Model
         'is_creatable' => 'boolean',
         'is_creatable_by' => 'integer',
         'deleted_at' => 'datetime',
+        'data' => 'array',
+        'is_protected' => 'boolean',
+        'is_hidden' => 'boolean',
+        'is_required' => 'boolean',
+        'is_unique' => 'boolean',
+
     ];
 
     public function roles()

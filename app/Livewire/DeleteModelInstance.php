@@ -18,6 +18,17 @@ class DeleteModelInstance extends Component
         $this->modelId = $modelId;
     }
 
+
+    public function deleteInstance(){
+        $model  = "App\Models\\" . $this->modelType;
+        $modelInstance = $model::find($this->modelId);
+        if($modelInstance){
+            $modelInstance->delete();
+        }
+        session()->flash('message', 'Instance deleted successfully.');
+        return redirect()->route(strtolower($this->modelType) . 's.index')->with(['message' => 'Instance deleted successfully.']);
+    }
+
     public function delete()
     {
         $modelClass = $this->getModelClass($this->modelType);

@@ -18,6 +18,15 @@ class PermissionController extends Controller
     }
 
     /**
+     * Display the specified permission.
+     */
+    public function show($id)
+    {
+        $permission = Permission::findOrFail($id);
+        return view('permissions.show', compact('permission'));
+    }
+
+    /**
      * Show the form for creating a new permission.
      */
     public function create()
@@ -78,7 +87,6 @@ class PermissionController extends Controller
     {
         $permission = Permission::findOrFail($id);
         $permission->delete();
-
         return redirect()->route('permissions.index')->with('success', 'Permission deleted successfully.');
     }
 }

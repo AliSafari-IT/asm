@@ -8,8 +8,8 @@
     <x-primary-button wire:click="createNew" class="p-8 text-white bg-green-500 hover:bg-red-700">
         Add New Instance {{ $modelType }}
     </x-primary-button>
-    <x-danger-button wire:click="delete" wire:loading.attr="disabled">
-        Confirm Delete
+    <x-danger-button wire:click="deleteInstance" wire:loading.attr="disabled">
+        Confirm Delete {{ $modelType }}
     </x-danger-button>
     <x-secondary-button wire:click="goBack" wire:loading.attr="disabled">
         Cancel Delete

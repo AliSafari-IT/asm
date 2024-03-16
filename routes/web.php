@@ -44,6 +44,12 @@ Route::middleware('auth')->group(function () {
         return view('users.index');
     });
 
+    Route::get('/users/{id}/edit', function ($id) {
+        return view('users.edit', ['id' => $id]);
+    });
+
+    Route::get('/users/{id}/details', [UserController::class, 'show'])->name('user.show');
+
     // Add routes for role management
 
     // Add routes for permission management
@@ -60,10 +66,14 @@ Route::resource('roles', RoleController::class);
 
 // Define a resource route for permissions
 Route::resource('permissions', PermissionController::class);
+Route::get('/permission/{id}/edit', [PermissionController::class, 'edit'])->name('permission.edit');
+//Route [permission.show]
+Route::get('/permission/{id}/details', [PermissionController::class, 'show'])->name('permission.show');
 
-// Example route to show the delete confirmation page
+// Define a route for confirmation
 Route::get('/delete/{modelType}/{modelId}', function ($modelType, $modelId) {
-    return view('permissions.destroy', ['modelType' => $modelType, 'modelId' => $modelId]);
+    $routeTo = \strtolower($modelType) . 's.destroy';
+    return view($routeTo, ['modelType' => $modelType, 'modelId' => $modelId]);
 })->name('delete.confirmation');
 
 require __DIR__ . '/auth.php';

@@ -44,6 +44,16 @@ class InitialInstance extends Model
         'is_movable' => false,
         'is_removable' => false,
         'is_creatable' => false,
+        'is_updatable' => false,
+
+        'email' => '',
+        'password' => '',
+        'password_confirmation' => '',
+        'role_id' => null,
+        'permission_id' => null,
+        'username' => '',
+
+
     ];
     // get the initial values
     
@@ -78,6 +88,16 @@ class InitialInstance extends Model
         'is_custom' => 'checkbox',
         'is_pinned' => 'checkbox',
         'is_movable' => 'checkbox',
+        'is_removable' => 'checkbox',
+        'is_creatable' => 'checkbox',
+        'is_updatable' => 'checkbox',
+        'email' => 'text',
+        'password' => 'text',
+        'password_confirmation' => 'text',
+        'role_ids' => 'array',
+        'username' => 'text',
+
+
     ];
 
     public function getFieldTypes()
@@ -122,6 +142,26 @@ class InitialInstance extends Model
         'data.is_creatable_by.integer' => 'The is_creatable_by field must be an integer.',
         'data.deleted_at' => 'The deleted_at field is changed by system.',
         'data.description.string' => 'The description must be a string.',
+        'data.description.max' => 'The description may not be greater than 2500 characters.',
+        'data.username.string' => 'The username must be a string.',
+        'data.username.max' => 'The username may not be greater than 100 characters.',
+        'data.username.required' => 'The username field is required.',
+        'data.username.unique' => 'The username has already been taken.',
+        'data.email.string' => 'The email must be a string.',
+        'data.email.max' => 'The email may not be greater than 255 characters.',
+        'data.email.required' => 'The email field is required.',
+        'data.email.unique' => 'The email has already been taken.',
+        'data.email.email' => 'The email must be a valid email address.',
+        'data.password.string' => 'The password must be a string.',
+        'data.password.max' => 'The password may not be greater than 255 characters.',
+        'data.password.required' => 'The password field is required.',
+        'data.password.confirmed' => 'The password confirmation does not match.',
+        'data.password_confirmation.string' => 'The password confirmation must be a string.',
+        'data.password_confirmation.max' => 'The password confirmation may not be greater than 255 characters.',
+        'data.password_confirmation.required' => 'The password confirmation field is required.',
+        'data.password_confirmation.confirmed' => 'The password confirmation does not match.',
+        'data.roles.required' => 'The roles field is required.',
+
     ];
 
     // getMessages
@@ -141,13 +181,19 @@ class InitialInstance extends Model
         // customize the validation rules
        return $customizedRules =[
             'data.name' => ['required', 'string', 'max:255'],
-            'data.description' => ['nullable', 'max:500'],
+            'data.description' => ['nullable', 'max:2500'],
             'data.slug' => [
                 'required',
                 'regex:/^\/.+$/',
                 Rule::unique('permissions', 'slug')->ignore($this->id),
             ],
             'data.deleted_at' => ['nullable'],
+            'data.username' => ['required', 'string', 'max:100'],
+            'data.email' => ['required', 'string', 'max:255', 'email', Rule::unique('users', 'email')->ignore($this->id)],
+            'data.password' => ['required', 'string', 'max:255'],
+            'data.password_confirmation' => ['required', 'string', 'max:255'],
+            'data.roles' => ['required'],
+            
         ];
     }
 

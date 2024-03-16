@@ -21,7 +21,35 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'password_confirm',
     ];
+
+    public $initialValues;
+    public $fieldTypes = [];
+    public $rules = [];
+
+
+    public function __construct()
+    {
+        parent::__construct();
+        $initialInstance = new InitialInstance();
+        $this->initialValues = $initialInstance->getInitialValues();
+        $this->fieldTypes = $initialInstance->getFieldTypes();
+        $this->rules = $initialInstance->getRules();
+
+    }
+    public function getInitialsValues()
+    {
+        $name = "name";
+        $psw = null;
+        $eml = "asafarim+$name@gmail.com";
+
+        return [
+            'name' => $name,
+            'email' => $eml,
+            'password' => $psw,
+        ];
+    }
 
     /**
      * The attributes that should be hidden for serialization.
@@ -29,7 +57,6 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $hidden = [
-        'password',
         'remember_token',
     ];
 
