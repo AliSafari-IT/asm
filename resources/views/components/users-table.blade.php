@@ -1,9 +1,12 @@
+@php
+$descriptionClass = 'bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600';
+@endphp
 <div class="overflow-x-auto rounded-lg shadow overflow-hidden mb-8 w-8/12 mx-auto mt-10">
     <table class="min-w-full leading-normal">
         <thead>
             <tr class="text-left text-gray-700 bg-gray-100">
                 <th class="px-5 py-3 border-b-2 border-gray-200">ID</th>
-                <th class="px-5 py-3 border-b-2 border-gray-200">Name</th>
+                <th class="px-5 py-3 border-b-2 border-gray-200 ">Name</th>
                 <th class="px-5 py-3 border-b-2 border-gray-200">Email</th>
                 <th class="px-5 py-3 border-b-2 border-gray-200">Actions</th>
             </tr>
@@ -12,7 +15,7 @@
             @foreach ($users as $user)
                 <tr class="hover:bg-gray-50">
                     <td class="px-5 py-2 border-b border-gray-200 bg-white text-sm">{{ $user->id }}</td>
-                    <td class="px-5 py-2 border-b border-gray-200 bg-white text-sm">{{ $user->name }}</td>
+                    <td class="px-5 py-2 border-b border-gray-200 bg-white text-sm  {{ $descriptionClass }}">{{ $user->name }}</td>
                     <td class="px-5 py-2 border-b border-gray-200 bg-white text-sm">{{ $user->email }}</td>
                     <td class="px-5 py-2 border-b border-gray-200 bg-white text-sm">
                         <a href="{{ route('users.edit', $user->id) }}"

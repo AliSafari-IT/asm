@@ -35,7 +35,7 @@ class EditModelInstance extends Component
         $routeTo = strtolower($this->modelType) . 's.index';
         // Save logic here, e.g., display success message
         $this->instanceModel->save();
-        return redirect()->route($routeTo)->with('message', 'Permission updated successfully.');       
+        return redirect()->route($routeTo)->with('message',  $this->modelType .' updated successfully.');       
     }
 
     public function render()

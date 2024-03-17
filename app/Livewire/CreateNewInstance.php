@@ -2,49 +2,71 @@
 
 namespace App\Livewire;
 
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
 class CreateNewInstance extends Component
 {
     public $instanceModel;
-    public $instance;
-    public $data = [];
-    public $initialValues;
-    public $fieldTypes;
     public $modelType;
+    public $data = [];
 
-    public function mount($instanceModel, $modelType = null)
+    public function mount($instanceModel, $modelType)
     {
-        if (!auth()->check()) {
+        if (!Auth::check()) {
             return redirect()->route('login');
         }
-        $this->modelType = $modelType;
+
         $this->instanceModel = $instanceModel;
-        $this->instance = $this->instanceModel;
-        $this->instance->fill($this->instanceModel-> getInitialsValues());
-        $this->instance->created_by = auth()->user()->id;
-        $this->instance->updated_by = auth()->user()->id;
-        $this->instance->created_at = now();
-        $this->instance->updated_at = now();
-        $this->data = $this->instance->toArray();
+        $this->modelType = $modelType;
+
+        // Handle new logic
+        // Fill the data with the initial values
+        $data = $this->instanceModel;
+        $data->fill($this->instanceModel->initialValues);
+        $data->created_by = Auth::user()->id;
+        $data->updated_by = Auth::user()->id;
+        $data->created_at = now();
+        $data->updated_at = now();
+
+        $this->data = $data->toArray();
+        $this->instanceModel = $data;
     }
 
     public function save()
     {
-        $rules = $this->instanceModel-> rules;
-        $messages = $this->instanceModel-> messages;
-        $this->instance->fill($this->data);
-        // Validate the nested 'data' structure
-        $validatedData = $this->validate([
-            'data' => $rules,
-        ], $messages);
-    
-        // Save logic here, e.g.,
-        $this->instance->save();
+        // Ensure instanceModel is an actual model instance
+        if (!$this->instanceModel) {
+            session()->flash('error', 'No instance model provided.');
+            return;
+        }
+
+        $rules = method_exists($this->instanceModel, 'getRules')
+        ? $this->instanceModel->getRules()
+        : [];
+        $messages = method_exists($this->instanceModel, 'validationMessages')
+        ? $this->instanceModel->validationMessages()
+        : [];
+
+        // Conditionally convert each rule's key to start with 'data.' if it doesn't already
+        $prefixedRules = collect($rules)->mapWithKeys(function ($rule, $key) {
+            // Prepend 'data.' only if it's not already there
+            if (!str_starts_with($key, 'data.')) {
+                $key = "data.$key";
+            }
+            return [$key => $rule];
+        })->toArray();
+
+        // Validate the data
+        $this->validate($prefixedRules, $messages);
+
+        // Fill and save the model
+        $this->instanceModel->fill($this->data);
+        $this->instanceModel->save();
 
         // Redirect or emit event after save
-        $routeTo = \strtolower($this->modelType) . 's.index';
-        return redirect()->route($routeTo);
+        session()->flash('success', $this->modelType . ' created successfully.');
+        return redirect()->route(strtolower($this->modelType) . 's.index');
     }
 
     public function render()

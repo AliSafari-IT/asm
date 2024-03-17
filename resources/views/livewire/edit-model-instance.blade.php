@@ -1,9 +1,5 @@
+{{-- resources/views/livewire/edit-model-instance.blade.php --}}
 <div class="max-w-4xl mx-auto py-10">
-    <x-slot name="header">
-        <h1 class="text-3xl font-bold mb-6">
-            {{ 'Edit' }} {{ $modelType }}
-        </h1>
-    </x-slot>
     @if (session()->has('message'))
     <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
         {{ session('message') }}

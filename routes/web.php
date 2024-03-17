@@ -48,7 +48,7 @@ Route::middleware('auth')->group(function () {
         return view('users.edit', ['id' => $id]);
     });
 
-    Route::get('/users/{id}/details', [UserController::class, 'show'])->name('user.show');
+    // Route::get('/users/{id}/details', [UserController::class, 'show'])->name('user.show');
 
     // Add routes for role management
 
@@ -62,7 +62,15 @@ Route::middleware('auth')->group(function () {
 Route::resource('users', UserController::class);
 
 // Define a resource route for roles
-Route::resource('roles', RoleController::class);
+Route::resource('roles', RoleController::class, [
+    'show' => view('roles.show', ['role' => 'id']),
+    'edit' => view('roles.edit', ['role' => 'id']),
+    'create' => view('roles.create'),
+    'destroy' => view('roles.destroy', ['role' => 'id']),
+]);
+
+
+
 
 // Define a resource route for permissions
 Route::resource('permissions', PermissionController::class);
@@ -71,9 +79,11 @@ Route::get('/permission/{id}/edit', [PermissionController::class, 'edit'])->name
 Route::get('/permission/{id}/details', [PermissionController::class, 'show'])->name('permission.show');
 
 // Define a route for confirmation
-Route::get('/delete/{modelType}/{modelId}', function ($modelType, $modelId) {
+Route::get('/{modelType}/delete/{modelId}', function ($modelType, $modelId) {
     $routeTo = \strtolower($modelType) . 's.destroy';
     return view($routeTo, ['modelType' => $modelType, 'modelId' => $modelId]);
 })->name('delete.confirmation');
+
+
 
 require __DIR__ . '/auth.php';

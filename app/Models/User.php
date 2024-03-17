@@ -7,10 +7,29 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use App\Models\InitialInstance;
 
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
+
+    public InitialInstance $initialModel;
+    public $initialValues;
+    public $fieldTypes;
+    public $rules;
+    public $messages;
+
+    protected $hidden = ['pivot', 'password', 'remember_token'];   
+
+    public function __construct()
+    {
+        $this->initialModel = new InitialInstance();
+        $this->initialValues = $this->initialModel->getInitialValues();
+        $this->fieldTypes = $this->initialModel->getFieldTypes();
+        $this->rules = $this->initialModel->getRules();
+        $this->messages = $this->initialModel->getMessages();
+
+    }
 
     /**
      * The attributes that are mass assignable.
@@ -24,20 +43,6 @@ class User extends Authenticatable
         'password_confirm',
     ];
 
-    public $initialValues;
-    public $fieldTypes = [];
-    public $rules = [];
-
-
-    public function __construct()
-    {
-        parent::__construct();
-        $initialInstance = new InitialInstance();
-        $this->initialValues = $initialInstance->getInitialValues();
-        $this->fieldTypes = $initialInstance->getFieldTypes();
-        $this->rules = $initialInstance->getRules();
-
-    }
     public function getInitialsValues()
     {
         $name = "name";
@@ -50,15 +55,6 @@ class User extends Authenticatable
             'password' => $psw,
         ];
     }
-
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
-    protected $hidden = [
-        'remember_token',
-    ];
 
     /**
      * The attributes that should be cast.

@@ -5,14 +5,14 @@ namespace App\Models;
 use App\Models\Role;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\InitialInstance as InitialPermission;
+use App\Models\InitialInstance;
 
 class Permission extends Model
 {
     use HasFactory;
 
     protected $fillable = ['name', 'description', 'slug'];
-    public InitialPermission $initialModel;
+    public InitialInstance $initialModel;
     public $initialValues;
     public $fieldTypes;
     public $rules;
@@ -22,7 +22,7 @@ class Permission extends Model
 
     public function __construct()
     {
-        $this->initialModel = new InitialPermission();
+        $this->initialModel = new InitialInstance();
         $this->initialValues = $this->initialModel->getInitialValues();
         $this->fieldTypes = $this->initialModel->getFieldTypes();
         $this->rules = $this->initialModel->getRules();
