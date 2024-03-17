@@ -14,4 +14,12 @@ class Authenticate extends Middleware
     {
         return $request->expectsJson() ? null : route('login');
     }
+
+    /**
+     * Redirect unauthenticated users to the home page.
+     */
+    protected function redirectToUnauthenticatedRequest(Request $request): string
+    {
+        return $request->expectsJson() ? '' : route('login');
+    }
 }

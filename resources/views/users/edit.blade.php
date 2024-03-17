@@ -2,8 +2,8 @@
     <div>
         @php
             $modelType = 'User';
-            $modelId = $id;    
-            $user = \App\Models\User::find($id);            
+            $modelId = $user->id;
+            $user = \App\Models\User::find($user->id);            
             $instanceModel = $user;
 
         @endphp
