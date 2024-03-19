@@ -6,9 +6,11 @@ use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
+
 class RolesTable extends Component
 {
     public $roles;
+    public$modelType;
 
     /**
      * Create a new component instance.
@@ -16,6 +18,7 @@ class RolesTable extends Component
     public function __construct()
     {
 
+        $this->modelType = 'Role';
         $this->roles = \App\Models\Role::all();
     }
 

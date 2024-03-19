@@ -3,11 +3,14 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\InitialInstance;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
-use App\Models\InitialInstance;
+use Spatie\Permission\Traits\HasRoles;
+
+use function PHPUnit\Framework\isNull;
 
 class User extends Authenticatable
 {
@@ -18,19 +21,7 @@ class User extends Authenticatable
     public $fieldTypes;
     public $rules;
     public $messages;
-
-    protected $hidden = ['pivot', 'password', 'remember_token'];   
-
-    public function __construct()
-    {
-        $this->initialModel = new InitialInstance();
-        $this->initialValues = $this->initialModel->getInitialValues();
-        $this->fieldTypes = $this->initialModel->getFieldTypes();
-        $this->rules = $this->initialModel->getRules();
-        $this->messages = $this->initialModel->getMessages();
-
-    }
-
+    
     /**
      * The attributes that are mass assignable.
      *
@@ -43,28 +34,67 @@ class User extends Authenticatable
         'password_confirm',
     ];
 
+    protected $hidden = ['pivot', 'remember_token'];
+
     public function getInitialsValues()
     {
         $name = "name";
         $psw = null;
         $eml = "asafarim+$name@gmail.com";
 
-        return [
+        return  $this->initialValues = [
             'name' => $name,
             'email' => $eml,
             'password' => $psw,
+            'password_confirm' => $psw,
         ];
     }
 
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-        'password' => 'hashed',
-    ];
+    public function getUserFieldTypes()
+    {
+        return  $this->fieldTypes =[
+            'name' => 'text',
+            'email' => 'email',
+            'password' => 'password',
+            'password_confirm' => 'password',
+
+        ];
+    }
+
+    public function getUserRules()
+    {
+        return  $this->rules = [
+            'name' => 'required',
+            'email' => 'required|email',
+            'password' => 'required',
+            'password_confirm' => 'required',
+        ];
+    }
+
+    public function getUserRulesMessages()
+    {
+        return  $this->messages = [
+            'name.required' => 'Name is required',
+            'email.required' => 'Email is required',
+            'email.email' => 'Email is not valid',
+            'password.required' => 'Password is required',
+            'password_confirm.required' => 'Password confirmation is required',
+        ];
+    }
+
+    public function __construct(
+        $initialValues = null,
+        $fieldTypes = null,
+        $rules = null,
+        $messages = null
+    )
+    {
+        $this->initialModel = new InitialInstance($initialValues);
+        $this->initialValues = $this->initialModel->initialValues;
+        $this->fieldTypes = $this->initialModel->getFieldTypes();
+        $this->rules = $this->initialModel->getRules();
+        $this->messages = $this->initialModel->getMessages();
+    }
 
     public function roles()
     {

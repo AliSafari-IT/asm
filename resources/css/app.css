@@ -9,5 +9,18 @@
  */ 
 
 
-
+/* Custom media query for viewports narrower than 420px */
+@media (max-width: 419px) {
+    #welcome-notification {
+        font-size: 75%; /* Half the original font size */
+        line-height: 1.5;
+        padding: 0.5em;
+        margin: 0.5em;
+        border-radius: 0.25em;
+        background-color: #f0f0f0;
+        color: #000000;
+        text-align: center;
+        
+    }
+}
 

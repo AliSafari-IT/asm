@@ -5,16 +5,18 @@ namespace App\View\Components;
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
-use Illuminate\Support\Facades\Auth;
 
-class TopMenuContainer extends Component
+class PermissionsTable extends Component
 {
+    public $permissions;
+    public $modelType;
     /**
      * Create a new component instance.
      */
     public function __construct()
     {
-        //
+        $this->modelType = 'Permission';
+        $this->permissions = \App\Models\Permission::all();
     }
 
     /**
@@ -22,6 +24,6 @@ class TopMenuContainer extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.top-menu-container');
+        return view('components.permissions-table');
     }
 }

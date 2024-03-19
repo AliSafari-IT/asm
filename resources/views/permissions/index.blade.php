@@ -1,20 +1,11 @@
-<div class="max-w-4xl mx-auto">
+<div>
     @php
-    $has_header = true;
-    $title = 'Permissions';
+    $currentLocationUrl = url()->current();
+    $has_header = (strpos($currentLocationUrl, 'permissions') !== false && strpos($currentLocationUrl, 'create') ===
+    false);
 
-    $cr = '';
     $modelType = 'Permission';
-    $modelId = '';
     $permissions = \App\Models\Permission::all();
-
-    if (Route::currentRouteName() === 'dashboard') {
-    $title = '';
-    $has_header = false;
-    $title = 'Permissions';
-    $modelId = null;
-    }
-
     @endphp
 
     @if($has_header)
@@ -24,14 +15,25 @@
                 {{ __('Permissions') }}
             </h2>
         </x-slot>
-
-        @livewire('model-instances-table', ['modelInstances' => $permissions, 'modelType' => $modelType, 'tableName' =>
-        'permissions', 'hasHeader' => $has_header])
+        <x-top-menu-container name="headerActions" class="m-6 w-8/12 mx-auto mt-10">
+            <x-create-new-button route="permissions.create" text="Add New {{ $modelType }}" />
+        </x-top-menu-container>
+        <x-permissions-table />
     </x-app-layout>
     @endif
 
+
+
     @if(!$has_header)
+    @if($permissions->count() > 0)
     @livewire('model-instances-table', ['modelInstances' => $permissions, 'modelType' => $modelType])
+    @else
+    <div class="text-center">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __('No Permissions Found') }}
+        </h2>
+    </div>
+    @endif
     @endif
 
 </div>

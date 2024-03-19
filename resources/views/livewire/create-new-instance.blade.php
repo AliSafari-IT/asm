@@ -42,7 +42,14 @@
         <!-- Add more inputs as needed -->
 
         <div class="flex items-center justify-between">
-            <a href="{{ route('permissions.index') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Back</a>
+            @php 
+            echo '<input type="hidden" name="created_by" value="' . Auth::user()->id . '" />'; 
+            
+            $routeTo = strtolower($modelType) . 's.index';
+
+            @endphp
+
+            <a href="{{ route($routeTo) }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Back</a>
             <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Save</button>
         </div>
     </form>
