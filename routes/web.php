@@ -6,6 +6,8 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GeneralInfo\AboutController;
+use App\Http\Controllers\GeneralInfo\ContactController;
+use App\Http\Controllers\GeneralInfo\PrivacyController;
 
 /*
 |--------------------------------------------------------------------------
@@ -89,6 +91,9 @@ Route::middleware('auth')->group(function () {
 
 });
 
-
+// Define a route for the About, Contact, and Privacy pages
 Route::get('/about', [AboutController::class, 'index'])->name('about');
+Route::get('/contact', [ContactController::class, 'index'])->name('contact');
+Route::get('/privacy', [PrivacyController::class, 'index'])->name('privacy');
+
 require __DIR__ . '/auth.php';

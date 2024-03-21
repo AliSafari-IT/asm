@@ -16,16 +16,10 @@
 </head>
 <body class="font-sans antialiased min-h-screen  flex flex-col sm:flex-row">
     <div class="pt-6 sm:pt-0 bg-gray-100 m-auto sm:w-8/12">
-        <div class="flex justify-between sm:justify-between items-center">
-            <a href="/">
-                <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
-            </a>
-            <!-- Navigation Link to About Page -->
-            <nav>
-                <a href="{{ route('about') }}" class="text-lg text-gray-700 hover:text-gray-900">About</a>
-            </nav>
-        </div>
-
+        <x-application-logo class="w-20 h-20 fill-current text-gray-500 m-auto" />
+        <x-top-menu-container>
+            <x-breadcrumb />
+        </x-top-menu-container>
         <div class="w-full shadow-md rounded px-8 pt-6 pb-8 mb-4">
             {{ $slot }}
         </div>
