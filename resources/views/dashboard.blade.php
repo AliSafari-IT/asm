@@ -1,5 +1,5 @@
-<!-- resources/views/dashboard.blade.php -->
 <x-app-layout>
+<div>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Dashboard') }}
@@ -61,12 +61,10 @@
                         </div>
                     </x-top-menu-container>
 
-                    <!-- Show the permissions table -->
-                    <div>
-                        @include('permissions.index', ['use_header' => false])
-                    </div>
+                   
                 </div>
             </div>
         </div>
     </div>
+</div>
 </x-app-layout>
