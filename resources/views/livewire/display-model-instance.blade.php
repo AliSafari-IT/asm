@@ -17,7 +17,6 @@
         echo '<input type="hidden" name="data[' . $field . ']" value="' . $value . '" />';
         $initialValue = $initialValues[$field] ?? null;
         $inputType = $fieldTypes[$field] ?? 'text';
-        dd ($data,  $instanceModel );
         @endphp
 
         <div class="mb-4">
