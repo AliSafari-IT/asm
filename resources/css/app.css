@@ -24,3 +24,36 @@
     }
 }
 
+.text-warning {
+    color: rgb(255, 145, 0);
+}
+
+.text-warning:hover {
+    color: rgb(255, 60, 0);
+}
+
+.text-danger {
+    color: rgba(255, 0, 0, 0.747);
+}
+
+.text-danger:hover {
+    color: rgb(255, 0, 0);
+}
+
+.text-success {
+    color: rgb(0, 255, 0);
+}
+
+.text-success:hover {
+    color: rgb(0, 128, 0);
+}
+
+.text-info {
+    color: rgb(0, 0, 255);
+}
+
+.text-info:hover {
+    color: rgb(0, 0, 128);
+}
+
+

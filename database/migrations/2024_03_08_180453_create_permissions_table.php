@@ -15,41 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('description')->nullable();
-            $table->string('slug')->nullable();
-
-            $table->boolean('is_default')->default(0);
-            $table->boolean('is_system')->default(0);
-            $table->boolean('is_admin')->default(0);
-            $table->boolean('is_public')->default(0);
-            $table->boolean('is_disabled')->default(0);
-            $table->boolean('is_deleted')->default(0);
-            $table->boolean('is_active')->default(1);
-            $table->boolean('is_visible')->default(1);
-            $table->boolean('is_readonly')->default(0);
-            $table->boolean('is_protected')->default(0);
-            $table->boolean('is_required')->default(0);
-            $table->boolean('is_unique')->default(1);
-            $table->boolean('is_searchable')->default(1);
-            $table->boolean('is_sortable')->default(1);
-            $table->boolean('is_filterable')->default(1);
-            $table->boolean('is_pinned')->default(0);
-            $table->boolean('is_movable')->default(1);
-            $table->boolean('is_copyable')->default(1);
-            $table->boolean('is_editable')->default(1);
-            $table->boolean('is_deletable')->default(1);
-            $table->boolean('is_importable')->default(1);
-            $table->boolean('is_exportable')->default(1);
-            $table->boolean('is_protected')->default(1);
-            $table->boolean('is_hidden')->default(0);
-            $table->boolean('is_printable')->default(1);
-            $table->boolean('is_required')->default(1);
-            $table->boolean('is_unique')->default(1);          
-           
+            $table->string('slug')->nullable();         
             $table->timestamps();
-            $table->softDeletes();
-
-            $table->json('data')->nullable();
-            
         });
     }
 

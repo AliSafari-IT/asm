@@ -5,6 +5,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\GeneralInfo\AboutController;
 
 /*
 |--------------------------------------------------------------------------
@@ -88,4 +89,6 @@ Route::middleware('auth')->group(function () {
 
 });
 
+
+Route::get('/about', [AboutController::class, 'index'])->name('about');
 require __DIR__ . '/auth.php';

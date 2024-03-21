@@ -29,6 +29,7 @@
             <input type="{{ $inputType }}" class="form-checkbox h-5 w-5 text-gray-600"
                 wire:model.defer="data.{{ $field }}" @if($value) checked @endif>
             @else
+            
             <input type="{{ $inputType }}"
                 class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline {{ $field === 'id' ? 'bg-gray-100 disabled' : '' }}"
                 {{ $field === 'id' ? 'disabled' : '' }} wire:model.defer="data.{{ $field }}">

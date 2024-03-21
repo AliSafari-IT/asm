@@ -11,16 +11,34 @@ class DisplayModelInstance extends Component
     public $modelId;
     public $data = [];
     public $modelType;
+    public $fieldTypes;
+    public $initialValues;
+    public $attributes = [];
+
+
 
     public function mount($instanceModel, $modelType, $modelId)
     {
         $this->instanceModel = $instanceModel;
         $this->modelId = $modelId;
         $this->modelType = $modelType;
+        $fieldTypes = $instanceModel->fieldTypes;
+        $initialValues = $instanceModel->initialValues;
 
-        $this->instanceModel->fill($this->instanceModel->find($this->modelId)->toArray());
 
-        $this->data = $this->instanceModel->toArray();
+        foreach($fieldTypes as $field => $type) {
+            $this->data[$field] = $instanceModel->$field;
+        }
+        $data['id'] = $modelId;
+        $data['name'] = $instanceModel->name;
+        $data['description'] = $instanceModel->description;
+
+        $this->data = $data;
+        dd($this->data);
+
+        // add attributes to $data
+        $this->data['fields'] = json_decode($fields);
+        dd($this->instanceModel);
     }
 
     // routeToEdit

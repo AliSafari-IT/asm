@@ -17,6 +17,7 @@
         echo '<input type="hidden" name="data[' . $field . ']" value="' . $value . '" />';
         $initialValue = $initialValues[$field] ?? null;
         $inputType = $fieldTypes[$field] ?? 'text';
+        dd ($data,  $instanceModel );
         @endphp
 
         <div class="mb-4">
@@ -29,6 +30,9 @@
             <input disabled name="data[{{ $field }}]" style ="cursor:not-allowed;"
             type="{{ $inputType }}" class="form-checkbox h-5 w-5 text-gray-600"
                 wire:model.defer="data.{{ $field }}" @if($value) checked @endif>
+                @php 
+                    dd($value, $inputType);
+                @endphp
             @else
             <input disabled type="{{ $inputType }}" name="data[{{ $field }}]" style ="cursor:not-allowed;"
                 class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline {{ $field === 'id' ? 'bg-gray-100 disabled' : '' }}"

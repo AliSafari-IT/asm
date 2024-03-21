@@ -45,10 +45,4 @@
             </x-primary-button>
         </div>
     </form>
-
-    <script>
-    if (localStorage.getItem("welcomeNotificationClosed")) {
-        localStorage.removeItem("welcomeNotificationClosed");
-    }
-    </script>
 </x-guest-layout>

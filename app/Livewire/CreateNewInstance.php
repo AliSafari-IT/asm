@@ -33,7 +33,11 @@ class CreateNewInstance extends Component
         // Handle new logic
         // Fill the data with the initial values
         $data = $this->instanceModel;
-        $data->fill($instance->initialValues->toArray());
+
+        //$data->id = null;
+        $data->name = null;
+        $data->description = null;
+
         $data->created_by = Auth::user()->id;
         $data->updated_by = Auth::user()->id;
         $data->created_at = now();
@@ -71,7 +75,7 @@ class CreateNewInstance extends Component
             return;
         }
 
-        dd($this->instanceModel);
+      //  dd($this->instanceModel);
 
         $rules = method_exists($this->instanceModel, 'getRules')
         ? $this->instanceModel->getRules() ?? ini

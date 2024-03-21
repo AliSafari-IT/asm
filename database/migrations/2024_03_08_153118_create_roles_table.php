@@ -16,24 +16,8 @@ return new class extends Migration
             $table->string('name');
             $table->string('description')->nullable();
             $table->string('slug')->nullable();
-            $table->text('permissions')->nullable();
-            $table->softDeletes();
-            $table->boolean('is_default')->default(0);
-            $table->boolean('is_system')->default(0);
-            $table->boolean('is_admin')->default(0);
-            $table->boolean('is_public')->default(0);
-            $table->boolean('is_disabled')->default(0);
-            $table->boolean('is_deleted')->default(0);
-            $table->boolean('is_active')->default(1);
-            $table->string('created_by')->nullable();
-            $table->string('updated_by')->nullable();
-            $table->string('deleted_by')->nullable();
-
-
             $table->timestamps();
         });
-
-
     }
 
     /**

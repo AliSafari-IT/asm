@@ -3,3 +3,13 @@ $fa-font-path:"~fa/../webfonts";
 @import "~fa/solid.scss";
 @import "~fa/regular.scss";
 @import "~fa/brands.scss";
+
+@import "~bootstrap/scss/bootstrap";
+
+@import "custom";
+
+// global styles
+body {
+    background-color: #f8f8f8;
+    
+}

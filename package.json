@@ -5,7 +5,7 @@
         "srv": "php artisan serve",
         "dev": "vite",
         "autoload": "./scripts/dump-autoload.sh",
-        "db_install": "./scripts/installDb.sh",
+        "db:install": "./scripts/installDb.sh",
         "build": "vite build",
         "test": "vite test",
         "lint": "eslint .",
