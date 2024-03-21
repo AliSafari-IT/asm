@@ -6,7 +6,6 @@
     'actions' => null,
     'slot' => null
 ])
-<body class="font-sans antialiased">
     <div class="min-h-screen bg-gray-100">
         @include('general_info.navigation')
 
@@ -68,4 +67,3 @@
         </main>
 
     </div>
-</body>

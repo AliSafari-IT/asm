@@ -1,7 +1,8 @@
-<x-guest-layout>
+<x-app-layout >
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
 
+    <div class="flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 box-border w-1/3 mx-auto shadow-2xl rounded-md bg-white top-1/2 left-1/2 transform -translate-x-1/12 -translate-y-1/12 z-10">
     <form method="POST" action="{{ route('login') }}">
         @csrf
 
@@ -44,5 +45,13 @@
                 {{ __('Log in') }}
             </x-primary-button>
         </div>
+        <div class="flex items-center justify-start mt-8">
+            <a class="underline text-sm text-red-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('register') }}">
+                {{ __('Not yet registered?') }}
+            </a>
+
+        </div>
     </form>
-</x-guest-layout>
+    </div>
+
+</x-app-layout>

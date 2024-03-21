@@ -1,5 +1,5 @@
 <x-app-layout>
-    <div class="mb-4 text-sm text-gray-600">
+<div class="container mx-auto px-4 py-7">
         <h1 class="py-6 text-3xl font-bold mb-4">Privacy Policy</h1>
         <p>Welcome to our website! We are committed to protecting the privacy of our users. Here, you'll find
             information about our data collection and usage practices.</p>
