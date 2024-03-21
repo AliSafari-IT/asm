@@ -1,4 +1,4 @@
-<p align="center" style="margin-top:20px; background-color:lightgray"><a href="https://asafarim.com" target="_blank"><img style="width:200px;margin:auto" src="https://raw.githubusercontent.com/AliSafari-IT/asm/ee55c96e9aa56aa468a52a3df06ad6f65a643354/public/asmlogo.svg" width="400" alt="ASAFARIM Logo"></a></p>
+<p align="center" style="margin-top:20px; background-color:lightgray"><a href="https://asafarim.com" target="_blank"><img style="width:200px;margin:auto" src="https://raw.githubusercontent.com/AliSafari-IT/asm/ee55c96e9aa56aa468a52a3df06ad6f65a643354/public/asmlogo.svg" fill="red" width="400" alt="ASAFARIM Logo"></a></p>
 
 <p align="center">
 <a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
