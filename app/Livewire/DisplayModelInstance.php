@@ -40,8 +40,6 @@ class DisplayModelInstance extends Component
         return redirect()->route($routeTo, $instanceModel->id);
     }
 
-
-
     public function render()
     {
         return view('livewire.display-model-instance');
