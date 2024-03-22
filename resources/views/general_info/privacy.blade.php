@@ -13,5 +13,6 @@
         <p>We use the information we collect to provide and improve our services. We do not share your personal
             information with third parties.</p>
 
-    </div>
+    </div>    
+@include('layouts.footer')
 </x-app-layout>

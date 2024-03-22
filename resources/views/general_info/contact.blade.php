@@ -7,4 +7,5 @@
     <p>You can email us at <a href="mailto:{{ config('app.email') }}">{{ config('app.email') }}</a>.</p>
 
 </div>
+@include('layouts.footer')
 </x-app-layout>

@@ -32,10 +32,5 @@
                     GitHub</a></li>
         </ul>
     </div>
-    @section('footer')
     @include('layouts.footer')
-    @endsection
-
-
-
 </x-app-layout>

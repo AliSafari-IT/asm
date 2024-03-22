@@ -66,8 +66,6 @@
     <main>
         {{ $slot }}
     </main>
-
-    <!-- Footer -->
     <!-- Footer -->
     <footer class="bg-gray-800 text-white text-center p-4 fixed inset-x-0 bottom-0">
         {!! $footer !!}
