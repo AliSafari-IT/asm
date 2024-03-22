@@ -9,9 +9,64 @@ $tags = \App\Models\Tag::all();
 $comments = \App\Models\Comment::all();
 $replies = \App\Models\Reply::all();
 $settings = \App\Models\Setting::all();
-
 $has_header = false;
-$modesCollection = ['roles' => $roles, 'permissions' => $permissions, 'users' => $users, 'posts' , 'categories', 'tags', 'comments', 'replies', 'settings'];
+
+$panelsData = [
+    'rolesCollection' => [
+        'name' => 'Roles',
+        'tableName' => 'roles',
+        'modelType' => 'Role',
+        'modelInstances' => $roles,
+    ],
+    'permissionsCollection' => [
+        'name' => 'Permissions',
+        'tableName' => 'permissions',
+        'modelType' => 'Permission',
+        'modelInstances' => $permissions,
+    ],
+    'usersCollection' => [
+        'name' => 'Users',
+        'tableName' => 'users',
+        'modelType' => 'User',
+        'modelInstances' => $users,
+    ],
+    'postsCollection' => [
+        'name' => 'Posts',
+        'tableName' => 'posts',
+        'modelType' => 'Post',
+        'modelInstances' => $posts,
+    ],
+    'categoriesCollection' => [
+        'name' => 'Categories',
+        'tableName' => 'categories',
+        'modelType' => 'Category',
+        'modelInstances' => $categories,
+    ],
+    'tagsCollection' => [
+        'name' => 'Tags',
+        'tableName' => 'tags',
+        'modelType' => 'Tag',
+        'modelInstances' => $tags,
+    ],
+    'commentsCollection' => [
+        'name' => 'Comments',
+        'tableName' => 'comments',
+        'modelType' => 'Comment',
+        'modelInstances' => $comments,
+    ],
+    'repliesCollection' => [
+        'name' => 'Replies',
+        'tableName' => 'replies',
+        'modelType' => 'Reply',
+        'modelInstances' => $replies,
+    ],
+    'settingsCollection' => [
+        'name' => 'Settings',
+        'tableName' => 'settings',
+        'modelType' => 'Setting',
+        'modelInstances' => $settings,
+    ]
+];
 ?>
 <x-app-layout>
     <div>
@@ -27,15 +82,28 @@ $modesCollection = ['roles' => $roles, 'permissions' => $permissions, 'users' =>
         </div>
         @endif
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            @if (empty($modesCollection))
-            <p>No modes to display</p>
+            @if (empty($panelsData))
+            <p>No collection to display</p>
             @endif
             <div class="grid grid-cols-3 gap-4">
-            @foreach ($modesCollection as $field => $mode)
+                @foreach ($panelsData as $field => $mode)
+                    @php 
+                        $modelInstances = $mode['modelInstances']; 
+                        $modelType= $mode['modelType']; 
+                        $count = $modelInstances->count(); 
+                    @endphp
+                    @if($count === 0)
+                    <div class="text-center py-10">
+                        <h2 class="font-semibold text-sm text-warning leading-tight">
+                            {{ __('No ' . $modelType . ' Found') }}
+                        </h2>
+                    </div>
+                    @endif
+                    @if($count > 0)
                     <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg" x-data="{ open: true }">
                         <div class="px-4 py-5 sm:p-6">
                             <h3 class="text-lg leading-6 font-medium text-gray-900" @click="open = !open">
-                            {{ strToUpper($field) }}
+                                {{ strToUpper($modelType) }}
                                 <button class="float-right">
                                     <span x-show="open">-</span>
                                     <span x-show="!open">+</span>
@@ -45,74 +113,15 @@ $modesCollection = ['roles' => $roles, 'permissions' => $permissions, 'users' =>
                         <div x-show="open" class="border-t border-gray-200">
                             <dl>
                                 <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                                    <!-- Panel Content Here -->
-                                    Content for panel:
-                                        @livewire('model-instances-table', ['modelType' => $field, 'modelInstances' => $mode, 'has_header' => $has_header])
+                                    @livewire('model-instances-table', ['modelType' => $modelType,'modelInstances'=>$modelInstances,'tableName' => $mode['tableName'],'has_header' => $has_header])
                                 </div>
                             </dl>
                         </div>
                     </div>
-                    @endforeach
-            </div>
-            @php
-            @endphp
-        </div>
-        <!-- Create 3 panels with crud buttons for users, roles, and permissions, and a container under each crud buttons for the table data to be displayed for each of the entities -->
-        <div class="container mx-auto px-4 py-7">
-            <div class="flex flex-wrap -mx-4">
-                <div class="w-full md:w-1/3 px-4 mb-4 md:mb-0">
-                    <div class="bg-white shadow rounded-lg">
-                        <div class="px-6 py-4 border-b border-gray-200">
-                            <h3 class="text-lg font-semibold">Users</h3>
-                        </div>
-                        <x-top-menu-container name="headerActions"
-                            class="flex justify-end items-baseline my-1 mx-3 py-3">
-                            <div class="flex space-x-4">
-                                <x-create-new-button route="users.index" text="View All"
-                                    classes="bg-blue-500 hover:bg-blue-700 text-white font-bold rounded" type="info" />
-                                <x-create-new-button route="users.create" text="Add New" target="_blank"
-                                    type="secondary" />
-                            </div>
-                        </x-top-menu-container>
-                    </div>
-                </div>
-                <div class="w-full md:w-1/3 px-4 mb-4 md:mb-0">
-                    <div class="bg-white shadow rounded-lg">
-                        <div class="px-6 py-4 border-b border-gray-200">
-                            <h3 class="text-lg font-semibold">Roles</h3>
-                        </div>
-                        <x-top-menu-container name="headerActions"
-                            class="flex justify-end items-baseline my-1 mx-3 py-3">
-                            <div class="flex space-x-4">
-                                <x-create-new-button route="roles.index" text="View All"
-                                    classes="bg-blue-500 hover:bg-blue-700 text-white font-bold rounded" type="info" />
-                                <x-create-new-button route="roles.create" text="Add New" target="_blank"
-                                    type="secondary" />
-                            </div>
-                        </x-top-menu-container>
-                        <!-- Show the permissions table -->
-                        <div>
-                            @include('roles.index', ['use_header' => false])
-                        </div>
-                    </div>
-                </div>
-                <div class="w-full md:w-1/3 px-4">
-                    <div class="bg-white shadow rounded-lg">
-                        <div class="px-6 py-4 border-b border-gray-200">
-                            <h3 class="text-lg font-semibold">Permissions</h3>
-                        </div>
-                        <x-top-menu-container name="headerActions"
-                            class="flex justify-end items-baseline my-1 mx-3 py-3">
-                            <div class="flex space-x-4">
-                                <x-create-new-button route="permissions.index" text="View All"
-                                    classes="bg-blue-500 hover:bg-blue-700 text-white font-bold rounded" type="info" />
-                                <x-create-new-button route="permissions.create" text="Add New" target="_blank"
-                                    type="secondary" />
-                            </div>
-                        </x-top-menu-container>
-                    </div>
-                </div>
+                    @endif
+                @endforeach
             </div>
         </div>
+
     </div>
 </x-app-layout>

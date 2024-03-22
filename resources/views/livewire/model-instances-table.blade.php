@@ -16,28 +16,30 @@ $descriptionClass = 'bg-white border-b dark:bg-gray-800 dark:border-gray-700 hov
                 <th class="px-6 py-3">Action</th>
             </tr>
         </thead>
-        @php
-        $modelTypeLower = strtolower($modelType);        
-        @endphp
         <tbody>
             @foreach ($modelInstances as $instance)
             <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                 <td class="px-3 py-1">{{ $instance['name'] }}</td>
                 @if(!$hasHeader)
-                <td class="px-3 py-1">{{ $instance['slug']}}</td>
+                <td class="px-3 py-1">{{ $instance['slug'] ?? '' }}</td>
                 @endif
                 @if($hasHeader)
-                <td class="px-3 py-1 truncate  {{ $descriptionClass }}">{{ $instance['description'] }}</td>
+                <td class="px-3 py-1 truncate  {{ $descriptionClass }}">{{ $instance['description'] ?? '' }}</td>
                 @endif
                 <td class="px-3 py-1">
+                    @php
+                    $id = $instance['id'] ?? null;
+                    @endphp
+                    @if($id)
                     {{-- Conditional View Link --}}
-                    <a href="{{ route($modelTypeLower . '.show', ['id' => $instance['id']]) }}"
+                    <a href="{{ route($tableName. '.show', $id) }}"
                         class="text-blue-500 hover:text-blue-700 mx-2">
                         <i class="fa-solid fa-eye"></i>
                     </a>
+                    @endif
                     @if($hasHeader)
                     {{-- Conditional Edit Link --}}
-                    <a href="{{ route($modelTypeLower . '.edit', ['id' => $instance['id']]) }}"
+                    <a href="{{ route($tableName . '.edit', ['id' => $instance['id']]) }}"
                         class="text-blue-500 hover:text-blue-700 mx-2">
                         <i class="fa-solid fa-pen-to-square"></i>
                     </a>

@@ -1,6 +1,10 @@
-<x-app-layout>
-<div class="container mx-auto px-4 py-7">
-        <h1 class="py-6 text-3xl font-bold mb-4">About Us</h1>
+<x-app-layout :header="true">
+    <div class="container mx-auto px-4 py-7">
+        <x-slot name="header">
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+                {{ __('About Us') }}
+            </h2>
+        </x-slot>
         <p>Welcome to our website! We are dedicated to providing you with the best experience possible. Here, you'll
             find information about our services, our team, and what makes us stand out in our industry. We believe in
             quality, innovation, and community. Join us as we explore new horizons together.</p>
@@ -28,4 +32,10 @@
                     GitHub</a></li>
         </ul>
     </div>
+    @section('footer')
+    @include('layouts.footer')
+    @endsection
+
+
+
 </x-app-layout>

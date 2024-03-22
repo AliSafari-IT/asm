@@ -1,3 +1,3 @@
-<div {{ $attributes->merge(['class' => 'top-menu-container']) }}>
+<div {{ $attributes->merge(['class' => 'top-menu-container']) }} >
     {{ $slot }}
 </div>

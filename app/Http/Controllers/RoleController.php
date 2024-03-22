@@ -16,10 +16,12 @@ class RoleController extends Controller
         return view('roles.index', compact('roles'));
     }
 
-    public function show(Role $role)
+    public function show($id)
     {
         // Your logic to show a specific user and return a view
-        return view('roles.show', ['role' => $role]);
+        $role = Role::findOrFail($id);
+        // return view('roles.show', compact('role'));
+        return view('roles.show', compact('role'));
     }
     /**
      * Show the form for creating a new role.
