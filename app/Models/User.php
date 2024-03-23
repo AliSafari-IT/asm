@@ -21,7 +21,8 @@ class User extends Authenticatable
     public $fieldTypes;
     public $rules;
     public $messages;
-    
+    public $tableName;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -82,6 +83,10 @@ class User extends Authenticatable
         ];
     }
 
+    public function  getTable() {
+        return $this->tableName ?? 'users';
+    }
+
     public function __construct(
         $initialValues = null,
         $fieldTypes = null,
@@ -94,6 +99,7 @@ class User extends Authenticatable
         $this->fieldTypes = $this->initialModel->getFieldTypes();
         $this->rules = $this->initialModel->getRules();
         $this->messages = $this->initialModel->getMessages();
+        $this->tableName = $this->getTable();
     }
 
     public function roles()

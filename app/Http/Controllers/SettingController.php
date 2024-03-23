@@ -9,6 +9,6 @@ class SettingController extends Controller
     public function show($id)
     {
         $setting = \App\Models\Setting::findOrFail($id);
-        return view('settings.show', compact('setting'));
+        return view('blog.settings.show', compact('setting'));
     }
 }

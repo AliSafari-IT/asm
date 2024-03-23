@@ -89,6 +89,15 @@ Route::middleware('auth')->group(function () {
         return view($routeTo, ['modelType' => $modelType, 'modelId' => $modelId]);
     })->name('delete.confirmation');
 
+    // Posts
+    Route::resource('posts', \App\Http\Controllers\PostController::class);
+    // Categories
+    Route::resource('categories', \App\Http\Controllers\CategoryController::class);
+    // Tags
+    Route::resource('tags', \App\Http\Controllers\TagController::class);
+    // Settings
+    Route::resource('settings', \App\Http\Controllers\SettingController::class);
+
 });
 
 // Define a route for the About, Contact, and Privacy pages

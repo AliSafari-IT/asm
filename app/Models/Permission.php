@@ -17,6 +17,7 @@ class Permission extends Model
     public $fieldTypes;
     public $rules;
     public $messages;
+    public $tableName;
 
     protected $hidden = ['pivot'];   
 
@@ -27,7 +28,11 @@ class Permission extends Model
         $this->fieldTypes = $this->initialModel->getFieldTypes();
         $this->rules = $this->initialModel->getRules();
         $this->messages = $this->initialModel->getMessages();
+        $this->tableName = $this->getTable();
+    }
 
+    public function  getTable() {
+        return $this->tableName ?? 'permissions';
     }
 
     // Initialize your default values in a method if they depend on object state

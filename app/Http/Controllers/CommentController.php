@@ -9,6 +9,6 @@ class CommentController extends Controller
     public function show($id)
     {
         $comment = \App\Models\Comment::findOrFail($id);
-        return view('comments.show', compact('comment'));
+        return view('blog.comments.show', compact('comment'));
     }
 }

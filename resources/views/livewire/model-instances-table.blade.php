@@ -19,7 +19,7 @@ $descriptionClass = 'bg-white border-b dark:bg-gray-800 dark:border-gray-700 hov
         <tbody>
             @foreach ($modelInstances as $instance)
             <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                <td class="px-3 py-1">{{ $instance['name'] }}</td>
+                <td class="px-3 py-1">{{ $instance['name']?? $instance['title']?? $instance['key'] ?? '' }}</td>
                 @if(!$hasHeader)
                 <td class="px-3 py-1">{{ $instance['slug'] ?? '' }}</td>
                 @endif

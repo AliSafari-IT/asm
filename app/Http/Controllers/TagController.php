@@ -9,6 +9,6 @@ class TagController extends Controller
     public function show($id)
     {
         $tag = \App\Models\Tag::findOrFail($id);
-        return view('tags.show', compact('tag'));
+        return view('blog.tags.show', compact('tag'));
     }
 }

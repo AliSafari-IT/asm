@@ -7,7 +7,7 @@
 'slot' => null,
 'footer' => $footer ?? ('&copy; ' . date('Y') . ' ' . config('app.name'))
 ])
-<div class="min-h-screen bg-gray-100">
+<div class="min-h-screen bg-gray-100 min-w-full min-h-screen">
     @include('general_info.navigation')
 
     <!-- Page Heading -->

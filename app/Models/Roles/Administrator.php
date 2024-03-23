@@ -13,6 +13,23 @@ class Administrator extends Model
     public $email;
     public $role = 'Administrator';
 
+    public $tableName;
+
+    public function __construct()
+    {
+        $this->role = 'Administrator';
+        $this->initialModel = new InitialInstance();
+        $this->initialValues = $this->initialModel->getInitialValues();
+        $this->fieldTypes = $this->initialModel->getFieldTypes();
+        $this->rules = $this->initialModel->getRules();
+        $this->messages = $this->initialModel->getMessages();
+        $this->tableName = $this->getTable();
+
+    }
+
+    public function  getTable() {
+        return $this->tableName ?? 'administrators';
+    }
     public function addUser($user)
     {
         $this->username = $user->username;

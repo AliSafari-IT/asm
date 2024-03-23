@@ -32,6 +32,7 @@ class EditModelInstance extends Component
         $validatedData = $this->validate([
             'data' => $rules,
         ], $messages);
+
         $routeTo = strtolower($this->modelType) . 's.index';
         // Save logic here, e.g., display success message
         $this->instanceModel->save();

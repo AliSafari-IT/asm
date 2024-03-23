@@ -7,7 +7,6 @@ $posts = \App\Models\Post::all();
 $categories = \App\Models\Category::all();
 $tags = \App\Models\Tag::all();
 $comments = \App\Models\Comment::all();
-$replies = \App\Models\Reply::all();
 $settings = \App\Models\Setting::all();
 $has_header = false;
 
@@ -54,12 +53,6 @@ $panelsData = [
         'modelType' => 'Comment',
         'modelInstances' => $comments,
     ],
-    'repliesCollection' => [
-        'name' => 'Replies',
-        'tableName' => 'replies',
-        'modelType' => 'Reply',
-        'modelInstances' => $replies,
-    ],
     'settingsCollection' => [
         'name' => 'Settings',
         'tableName' => 'settings',
@@ -101,8 +94,8 @@ $panelsData = [
                     @endif
                     @if($count > 0)
                     <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg" x-data="{ open: true }">
-                        <div class="px-4 py-5 sm:p-6">
-                            <h3 class="text-lg leading-6 font-medium text-gray-900" @click="open = !open">
+                        <div class="px-2 py-3 sm:p-6  bg-gray-200">
+                            <h3 class="text-lg font-medium text-gray-900" @click="open = !open">
                                 {{ strToUpper($modelType) }}
                                 <button class="float-right">
                                     <span x-show="open">-</span>
@@ -110,9 +103,9 @@ $panelsData = [
                                 </button>
                             </h3>
                         </div>
-                        <div x-show="open" class="border-t border-gray-200">
-                            <dl>
-                                <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                        <div x-show="open" class="border-t border-gray-200 w-full">
+                            <dl class="w-full">
+                                <div >
                                     @livewire('model-instances-table', ['modelType' => $modelType,'modelInstances'=>$modelInstances,'tableName' => $mode['tableName'],'has_header' => $has_header])
                                 </div>
                             </dl>

@@ -13,16 +13,16 @@ class DisplayModelInstance extends Component
     public $modelType;
     public $fieldTypes;
     public $initialValues;
+    public $tableName;
 
-
-
-    public function mount($instanceModel, $modelType, $modelId)
+    public function mount($instanceModel, $modelType, $modelId, $tableName = null)
     {
         $this->instanceModel = $instanceModel;
         $this->modelId = $modelId;
         $this->modelType = $modelType;
-
-        $this->instanceModel->fill($this->instanceModel->find($this->modelId)->toArray());
+        $cname = "\App\Models\\$modelType";
+        $this->tableName = (new $cname)->getTable();
+        $this->instanceModel = $this->instanceModel->findOrFail($this->modelId);
         $this->data = $this->instanceModel->toArray();
     }
 
@@ -31,7 +31,7 @@ class DisplayModelInstance extends Component
     {
         $modelType = $this->modelType;
         $modelTypeLower = strtolower($modelType);
-        $routeTo = $modelTypeLower .'s.edit';
+        $routeTo = $modelTypeLower . 's.edit';
         $modelId = $this->modelId;
         $instanceModel = $this->instanceModel;
         $modelTypeLower = $instanceModel->id;

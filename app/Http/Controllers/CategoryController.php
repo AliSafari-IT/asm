@@ -24,6 +24,6 @@ class CategoryController extends Controller
     public function show($id)
     {
         $category = \App\Models\Category::findOrFail($id);
-        return view('categories.show', compact('category'));
+        return view('blog.categories.show', compact('category'));
     }
 }
