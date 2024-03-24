@@ -3,39 +3,28 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Category;
+use App\Models\Image;
 use Illuminate\Support\Str;
 use ReflectionClass;
 use Illuminate\Support\Facades\View as ViewFacade;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-
-class CategoryController extends Controller
+class ImageController extends Controller
 {
-    /**
-     * Display a listing of the categories.
-     */
-    public function index()
+        public function index()
     {
-        $categories = \App\Models\Category::all();
-        return view('categories.index', compact('categories'));
-    }
-
-    /**
-     * Display the specified category.
-     * 
-     * @param  \App\Models\Category  $category
-     * @return \Illuminate\Http\Response
-     * */
+        $images =Image::all();
+        return view('images.index', compact('images'));
+    }   
+    
     public function show($model)
     {
         if (is_numeric($model)) {
-            $model = Category::findOrFail($model);
+            $model = Image::findOrFail($model);
         }
         $tableName = strtolower(Str::plural(class_basename($model)));
         $viewName = 'blog.' . $tableName . '.show';
         return view($viewName, compact('model'));
     }
-
 
     public function edit(Request $request, $id)
     {
@@ -68,6 +57,7 @@ class CategoryController extends Controller
         return view($viewPath, ['model' => $model]);
     }
 
+
     public function update(Request $request, $id)
     {
         // Extract the name of the model from this controller (this controller class name) (eg. PostController => Post)
@@ -84,5 +74,6 @@ class CategoryController extends Controller
 
         return redirect()->route($routeName, $model)->with('success', class_basename($model) . ' updated successfully.');
     }
+
 
 }

@@ -8,6 +8,10 @@ $categories = \App\Models\Category::all();
 $tags = \App\Models\Tag::all();
 $comments = \App\Models\Comment::all();
 $settings = \App\Models\Setting::all();
+$images = \App\Models\Image::all();
+$articles = \App\Models\Article::all();
+$keywords = \App\Models\Keyword::all();
+
 $has_header = false;
 
 $panelsData = [
@@ -58,6 +62,24 @@ $panelsData = [
         'tableName' => 'settings',
         'modelType' => 'Setting',
         'modelInstances' => $settings,
+    ],
+    'imagesCollection' => [
+        'name' => 'Images',
+        'tableName' => 'images',
+        'modelType' => 'Image',
+        'modelInstances' => $images,
+    ],
+    'articlesCollection' => [
+        'name' => 'Articles',
+        'tableName' => 'articles',
+        'modelType' => 'Article',
+        'modelInstances' => $articles,
+    ],
+    'keywordsCollection' => [
+        'name' => 'Keywords',
+        'tableName' => 'keywords',
+        'modelType' => 'Keyword',
+        'modelInstances' => $keywords,
     ]
 ];
 ?>
@@ -80,38 +102,40 @@ $panelsData = [
             @endif
             <div class="grid grid-cols-3 gap-4">
                 @foreach ($panelsData as $field => $mode)
-                    @php 
-                        $modelInstances = $mode['modelInstances']; 
-                        $modelType= $mode['modelType']; 
-                        $count = $modelInstances->count(); 
-                    @endphp
-                    @if($count === 0)
-                    <div class="text-center py-10">
-                        <h2 class="font-semibold text-sm text-warning leading-tight">
-                            {{ __('No ' . $modelType . ' Found') }}
-                        </h2>
+                @php
+                $modelInstances = $mode['modelInstances'];
+                $modelType= $mode['modelType'];
+                $count = $modelInstances->count();
+                @endphp
+                @if($count === 0)
+                <div class="text-center py-10">
+                    <h2 class="font-semibold text-sm text-warning leading-tight">
+                        {{ __('No ' . $modelType . ' Found') }}
+                    </h2>
+                </div>
+                @endif
+                @if($count > 0)
+                <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg" x-data="{ open: true }">
+                    <div class="px-2 py-3 sm:p-6  bg-gray-200">
+                        <h3 class="text-lg font-medium text-gray-900" @click="open = !open">
+                            {{ strToUpper($modelType) }}
+                            <button class="float-right">
+                                <span x-show="open">-</span>
+                                <span x-show="!open">+</span>
+                            </button>
+                        </h3>
                     </div>
-                    @endif
-                    @if($count > 0)
-                    <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg" x-data="{ open: true }">
-                        <div class="px-2 py-3 sm:p-6  bg-gray-200">
-                            <h3 class="text-lg font-medium text-gray-900" @click="open = !open">
-                                {{ strToUpper($modelType) }}
-                                <button class="float-right">
-                                    <span x-show="open">-</span>
-                                    <span x-show="!open">+</span>
-                                </button>
-                            </h3>
-                        </div>
-                        <div x-show="open" class="border-t border-gray-200 w-full">
-                            <dl class="w-full">
-                                <div >
-                                    @livewire('model-instances-table', ['modelType' => $modelType,'modelInstances'=>$modelInstances,'tableName' => $mode['tableName'],'has_header' => $has_header])
-                                </div>
-                            </dl>
-                        </div>
+                    <div x-show="open" class="border-t border-gray-200 w-full">
+                        <dl class="w-full">
+                            <div>
+                                @livewire('model-instances-table', ['modelType' =>
+                                $modelType,'modelInstances'=>$modelInstances,'tableName' =>
+                                $mode['tableName'],'has_header' => $has_header])
+                            </div>
+                        </dl>
                     </div>
-                    @endif
+                </div>
+                @endif
                 @endforeach
             </div>
         </div>

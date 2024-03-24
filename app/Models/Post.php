@@ -9,12 +9,13 @@ use Illuminate\Database\Eloquent\Model;
 class Post extends Model
 {
     use HasFactory;
-
-    public $tableName;
+    public InitialInstance $initialModel;
     public $initialValues;
     public $fieldTypes;
     public $rules;
     public $messages;
+    public $tableName;
+
 
     protected $fillable = [
         'title',
@@ -30,6 +31,7 @@ class Post extends Model
         'is_published',
         'is_deleted',
         'is_draft',
+        'keywords',
     ];
 
     public function getInitialValues()
@@ -48,6 +50,7 @@ class Post extends Model
             'is_published' => '',
             'is_deleted' => '',
             'is_draft' => '',
+            'keywords' => '',
         ];
     }
 
@@ -67,6 +70,7 @@ class Post extends Model
             'is_published' => 'checkbox',
             'is_deleted' => 'checkbox',
             'is_draft' => 'checkbox',
+            'keywords' => 'text',
         ];
     }
 
@@ -86,6 +90,7 @@ class Post extends Model
             'is_published' => 'nullable|boolean',
             'is_deleted' => 'nullable|boolean',
             'is_draft' => 'nullable|boolean',
+            'keywords' => 'nullable|string|max:255',
         ];
     }
 
@@ -120,6 +125,7 @@ class Post extends Model
             'is_deleted.boolean' => 'The is deleted field must be a boolean.',
             'is_draft.nullable' => 'The is draft field is optional.',
             'is_draft.boolean' => 'The is draft field must be a boolean.',
+            'keywords.nullable' => 'The keywords field is optional.',
         ];
     }
 
@@ -130,7 +136,6 @@ class Post extends Model
 
     public function __construct()
     {
-        $this->role = 'Administrator';
         $this->initialModel = new InitialInstance();
         $this->initialValues = $this->initialModel->getInitialValues();
         $this->fieldTypes = $this->initialModel->getFieldTypes();
@@ -152,6 +157,14 @@ class Post extends Model
     public function comments()
     {
         return $this->morphMany(Comment::class, 'commentable');
+    }
+
+    /**
+     * Keywords (a json field of the Post model which stores an array of keyword ids)
+     * */
+    public function getKeywords()
+    {
+        return $this->keywords;
     }
 
 }

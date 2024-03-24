@@ -12,6 +12,7 @@
 -- database\insert_values.sql: Bcrypt algorithm is used to hash passwords.
 INSERT INTO users
 VALUES (
+
         NULL,
         'Ali',
         'asafarim+ali@gmail.com',
@@ -219,20 +220,24 @@ VALUES (NULL, 'site.title', 'My Site'),
  $table->timestamps(); // Timestamps to track when tags are created or updated
  });
  */
-INSERT INTO tags (name, slug)
-VALUES ('AI', '/ai'),
-    ('Laravel', '/laravel'),
-    ('PHP', '/php'),
-    ('Python', '/python'),
-    ('C++', '/c++'),
-    ('C#', '/c#'),
-    ('Java', '/java'),
-    ('Javascript', '/javascript'),
-    ('Ruby', '/ruby'),
-    ('Swift', '/swift'),
-    ('Kotlin', '/kotlin'),
-    ('Golang', '/golang'),
-    ('C', '/c');
+INSERT INTO tags (name, slug,description)
+VALUES ('AI', '/ai', 'Artificial Intelligence'),
+    ('Laravel', '/laravel', 'Laravel Framework'),
+    ('PHP', '/php', 'PHP Framework'),
+    ('DevOps', '/devops', 'DevOps'),
+    ('Javascript', '/javascript', 'Javascript'),
+    ('CSS', '/css', 'CSS'),
+    ('HTML', '/html', 'HTML'),    
+    ('Augmented Reality', '/augmented-reality', 'Augmented Reality'),
+    ('Mobile Development', '/mobile-development', 'Mobile Development'),
+    ('Web Development', '/web-development', 'Web Development'),
+    ('REST', '/rest', 'Representational State Transfer'),
+    ('Scrum', '/scrum', 'Scrum'),
+    ('TDD', '/tdd', 'Test-Driven Development'),
+    ('Git', '/git', 'Git'),
+    ('Microservices', '/microservices', 'Microservices'),
+    ('Docker', '/docker', 'Docker');
+
 /**
  Schema::create('categories', function (Blueprint $table) {
  $table->id();
@@ -504,3 +509,43 @@ VALUES (1, '8'),
     -- 'Introduction to Cloud Computing' associated with 'Laravel' because of Laravel's cloud deployment capabilities
     (6, '7');
 -- 'Building RESTful APIs' could relate to 'Java' given its use in backend development
+
+INSERT INTO keywords (keyword, description) VALUES
+('Agile', 'A set of practices for software development under which requirements and solutions evolve through the collaborative effort of self-organizing cross-functional teams.'),
+('API', 'Application Programming Interface, a set of routines, protocols, and tools for building software applications.'),
+('CI/CD', 'Continuous Integration and Continuous Deployment, a method to frequently deliver apps to customers by introducing automation into the stages of app development.'),
+('DevOps', 'A set of practices that combines software development (Dev) and IT operations (Ops) aimed at shortening the system development life cycle and providing continuous delivery.'),
+('Docker', 'An open platform for developing, shipping, and running applications in containers.'),
+('Git', 'A distributed version-control system for tracking changes in source code during software development.'),
+('Microservices', 'An architectural style that structures an application as a collection of loosely coupled services, which implement business capabilities.'),
+('REST', 'Representational State Transfer, an architectural style for designing networked applications.'),
+('Scrum', 'An agile framework for managing knowledge work, with an emphasis on software development.'),
+('TDD', 'Test-Driven Development, a software development process that relies on the repetition of a very short development cycle: requirements are turned into very specific test cases.');
+
+INSERT INTO images (source, type, alt_text, caption, path, dimensions) VALUES
+('external', 'jpg', 'HTML Introduction', 'An introduction to HTML.', '/images/html-intro.jpg',  '800x600'),
+('external', 'jpg',  'CSS Basics', 'Basics of CSS for beginners.', '/images/css-basics.jpg',  '800x600'),
+('external', 'jpg',  'JavaScript Fundamentals', 'Fundamental concepts of JavaScript.', '/images/js-fundamentals.jpg',  '800x600'),
+('external', 'jpg',  'Web Security', 'Understanding web security.', '/images/web-security.jpg',  '800x600'),
+('external', 'jpg',  'Cloud Computing', 'Introduction to cloud computing.', '/images/cloud-computing.jpg',  '800x600'),
+('external', 'jpg',  'RESTful APIs', 'Building RESTful APIs.', '/images/restful-apis.jpg',  '800x600'),
+('external', 'jpg',  'Machine Learning', 'Introduction to machine learning.', '/images/machine-learning.jpg',  '800x600'),
+('external', 'jpg',  'Git and GitHub', 'Basics of Git and GitHub.', '/images/git-github.jpg',  '800x600'),
+('external', 'jpg',  'Responsive Design', 'Responsive web design techniques.', '/images/responsive-design.jpg',  '800x600'),
+('external', 'jpg',  'Advanced CSS', 'Advanced CSS techniques.', '/images/advanced-css.jpg',  '800x600');
+
+-- Insert parent comments for articles and post
+INSERT INTO comments (body, parent_id, commentable_id, commentable_type, user_id) VALUES
+('Great article on web development!', NULL, 1, 'App\\Models\\Article', 1),
+('Very informative, thank you!', NULL, 2, 'App\\Models\\Article', 1),
+('Insightful post on cloud computing.', NULL, 1, 'App\\Models\\Post', 1);
+
+-- Assuming the IDs of the above comments are 1, 2, and 3 respectively
+-- Now, insert nested comments as replies to the first and second comments
+INSERT INTO comments (body, parent_id, commentable_id, commentable_type, user_id) VALUES
+('Thanks! Glad you liked it.', 1, 1, 'App\\Models\\Article', 1),
+('You are welcome!', 2, 2, 'App\\Models\\Article', 1);
+
+-- Adding additional comments to reach a total of 6, with another one for the post
+INSERT INTO comments (body, parent_id, commentable_id, commentable_type, user_id) VALUES
+('Looking forward to more posts like this.', NULL, 1, 'App\\Models\\Post', 1);

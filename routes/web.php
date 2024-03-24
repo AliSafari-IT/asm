@@ -1,13 +1,21 @@
 <?php
 
-use App\Http\Controllers\PermissionController;
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\RoleController;
-use App\Http\Controllers\UserController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\GeneralInfo\AboutController;
 use App\Http\Controllers\GeneralInfo\ContactController;
 use App\Http\Controllers\GeneralInfo\PrivacyController;
+use App\Http\Controllers\ImageController;
+use App\Http\Controllers\KeywordController;
+use App\Http\Controllers\PermissionController;
+use App\Http\Controllers\PostController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\SettingController;
+use App\Http\Controllers\TagController;
+use App\Http\Controllers\UserController;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -69,34 +77,36 @@ Route::middleware('auth')->group(function () {
 // Define a resource route for users
     Route::resource('users', UserController::class);
 
-    // Define a resource route for roles
-    Route::resource('roles', RoleController::class, [
-        'show' => view('roles.show', ['role' => 'id']),
-        'edit' => view('roles.edit', ['role' => 'id']),
-        'create' => view('roles.create'),
-        'destroy' => view('roles.destroy', ['role' => 'id']),
-    ]);
-
-    // Define a resource route for permissions
-    Route::resource('permissions', PermissionController::class);
-    Route::get('/permission/{id}/edit', [PermissionController::class, 'edit'])->name('permission.edit');
-    //Route [permission.show]
-    Route::get('/permission/{id}/details', [PermissionController::class, 'show'])->name('permission.show');
-
     // Define a route for confirmation
-    Route::get('/{modelType}/delete/{modelId}', function ($modelType, $modelId) {
-        $routeTo = \strtolower($modelType) . 's.destroy';
-        return view($routeTo, ['modelType' => $modelType, 'modelId' => $modelId]);
+    Route::get('/{tableName}/delete/{modelId}', function ($tableName, $modelId) {
+        $routeTo = \strtolower($tableName) . '.destroy';
+        return view($routeTo, ['tableName' => $tableName, 'modelId' => $modelId]);
     })->name('delete.confirmation');
 
+    // Define a resource route for roles
+    Route::resource('roles', RoleController::class);
+    // Define a resource route for permissions
+    Route::resource('permissions', PermissionController::class);
     // Posts
-    Route::resource('posts', \App\Http\Controllers\PostController::class);
+    Route::resource('posts', PostController::class);
     // Categories
-    Route::resource('categories', \App\Http\Controllers\CategoryController::class);
+    Route::resource('categories', CategoryController::class);
     // Tags
-    Route::resource('tags', \App\Http\Controllers\TagController::class);
+    Route::resource('tags', TagController::class);
     // Settings
-    Route::resource('settings', \App\Http\Controllers\SettingController::class);
+    Route::resource('settings', SettingController::class);
+    // Comments
+    Route::resource('comments', CommentController::class);
+    // Articles
+    Route::resource('articles', ArticleController::class);
+    // Images
+    Route::resource('images', ImageController::class);
+    // Videos
+    Route::resource('videos', VideoController::class);
+    // Files
+    Route::resource('files', FileController::class);
+    // Keywords
+    Route::resource('keywords', KeywordController::class);
 
 });
 

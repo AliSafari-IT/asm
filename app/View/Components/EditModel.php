@@ -7,19 +7,13 @@ use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
 
-class RolesTable extends Component
+class EditModel extends Component
 {
-    public $roles;
-    public$modelType;
-
     /**
      * Create a new component instance.
      */
     public function __construct()
     {
-
-        $this->modelType = 'Role';
-        $this->roles = \App\Models\Role::all();
     }
 
     /**
@@ -27,6 +21,7 @@ class RolesTable extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.roles-table');
+
+        return view('components.edit-model');
     }
 }

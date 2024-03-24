@@ -1,27 +1,32 @@
-@php 
+@php
 $modelType = 'Role';
-$roles = \App\Models\Role::all();
-$has_header = (strpos(url()->current(), 'roles') !== false && strpos(url()->current(), 'create') === false);
+$columns=['id' => 'ID', 'name' => 'Role Name', 'description' => 'Description'];
+
+$models = "\\App\Models\\$modelType"::all();
+$tableName = strtolower($modelType . 's');
+$modelsCreateRoute = $tableName.'.create';
+$has_header = (strpos(url()->current(), $tableName) !== false && strpos(url()->current(), 'create') === false);
 @endphp
 
-<!-- Roles Index -->
+<!-- Conditional Layout -->
 @if($has_header)
 <x-app-layout>
-@else
-<div>
-@endif
-<x-slot name="header">
-    <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-        {{ __('Roles') }}
-    </h2>
-</x-slot>
-<x-top-menu-container name="headerActions" class="m-6 w-8/12 mx-auto mt-10">
-    <x-create-new-button route="roles.create"  text="Add New {{ $modelType }}" />
-</x-top-menu-container>
+    @else
+    <div>
+        @endif
+        <x-slot name="header">
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+                {{ __($modelType . 's') }}
+            </h2>
+        </x-slot>
+        <x-top-menu-container name="headerActions" class="m-6 w-8/12 mx-auto mt-10">
+            <x-create-new-button :route="$modelsCreateRoute" :text="'Add New ' . $modelType" />
+        </x-top-menu-container>
 
-<!-- Roles Table -->
-<x-roles-table />
-@if($has_header)
+        <!-- Models Table -->
+        <x-show-models :models="$models" :columns="$columns" :tableName="$tableName" />
+
+        @if($has_header)
 </x-app-layout>
 @else
 </div>

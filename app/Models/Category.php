@@ -4,16 +4,18 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\InitialInstance;
 
 class Category extends Model
 {
     use HasFactory;
-
-    public $tableName;
+    public InitialInstance $initialModel;
     public $initialValues;
     public $fieldTypes;
     public $rules;
     public $messages;
+    public $tableName;
+
 
     protected $fillable = [
         'name',

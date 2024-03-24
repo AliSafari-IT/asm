@@ -30,7 +30,8 @@
         "new:model": "./scripts/makeModel.sh",
         "new:controller": "./scripts/makeController.sh",
         "new:lw": "./scripts/makeLivewire.sh",
-        "crud": "./scripts/generate_crud_views.sh"
+        "crud": "./scripts/generate_crud_views.sh",
+        "component": "./scripts/newComponent.sh"
     },
     "devDependencies": {
         "@tailwindcss/forms": "^0.5.2",

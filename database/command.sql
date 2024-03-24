@@ -24,3 +24,10 @@ DROP TABLE IF EXISTS migrations;
 DROP TABLE IF EXISTS password_reset_tokens;
 DROP TABLE IF EXISTS failed_jobs;
 DROP TABLE IF EXISTS personal_access_tokens;
+DROP TABLE IF EXISTS keywords;
+DROP TABLE IF EXISTS users_keywords;
+DROP TABLE IF EXISTS articles_keywords;
+DROP TABLE IF EXISTS articles_users;
+DROP TABLE IF EXISTS  articles_users;
+DROP TABLE IF EXISTS  posts_keywords;
+

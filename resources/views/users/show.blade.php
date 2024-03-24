@@ -1,7 +1,11 @@
 <x-app-layout>
-    @php $modelType = 'User'; $modelId = $user->id; $tableName = 'users';
+    @php
+    $modelType = class_basename($model);
+    $modelId = $model->id;
+    $tableName = strtolower(Str::plural($modelType));
     @endphp
-    <div>       
-        @livewire('display-model-instance', ['instanceModel' => $user, 'modelType' => $modelType, 'modelId' => $modelId, 'tableName' => $tableName]);
+    <div>
+        @livewire('display-model-instance', ['instanceModel' => $model, 'modelType' => $modelType, 'modelId' =>
+        $modelId, 'tableName' => $tableName]);
     </div>
 </x-app-layout>

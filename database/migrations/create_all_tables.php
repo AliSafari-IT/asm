@@ -122,6 +122,7 @@ return new class extends Migration
                 $table->id(); // Unique identifier for each tag
                 $table->string('name', 191)->unique(); // The name of the tag, unique
                 $table->string('slug', 191)->unique(); // A URL-friendly version of the tag name, unique
+                $table->string('description', 999)->nullable(); // A description of the tag
                 $table->timestamps(); // Timestamps to track when tags are created or updated
             });
         }
@@ -212,6 +213,7 @@ return new class extends Migration
 
                 $table->string('slug')->unique(); // Ensure slugs are unique
                 $table->json('images')->nullable(); // Store images as a JSON string
+                $table->json('keywords')->nullable(); // Store keywords as a JSON string
                 $table->longText('body'); // Suitable for storing large HTML or rich text content
                 $table->foreignId('user_id')->constrained()->onDelete('cascade');
                 $table->foreignId('category_id')->constrained()->onDelete('cascade');
@@ -231,9 +233,8 @@ return new class extends Migration
                 $table->string('type', 50); // The type of the image (e.g., "jpeg", "png", "svg")
                 $table->string('path'); // The path or URL to the image
                 $table->string('alt_text')->nullable(); // Alternative text for the image, for accessibility
-                $table->unsignedBigInteger('size')->nullable(); // The size of the image in bytes
                 $table->string('dimensions')->nullable(); // The dimensions of the image (e.g., "1920x1080")
-                $table->text('description')->nullable(); // A brief description of the image
+                $table->text('caption')->nullable(); // A brief description of the image
                 $table->timestamps(); // Timestamps to track when the image record was created or updated
 
                 // You might want to add indexes on columns frequently used in queries or filters, such as 'source' or 'type'
@@ -241,6 +242,43 @@ return new class extends Migration
                 $table->index('type');
             });
         }
+
+        if (!Schema::hasTable('keywords')) {
+            Schema::create('keywords', function (Blueprint $table) {
+                $table->id();
+                $table->string('keyword')->unique();
+                $table->string('description')->nullable();
+                $table->timestamps();
+            });
+        }
+
+        if (!Schema::hasTable('articles_keywords')) {
+            Schema::create('articles_keywords', function (Blueprint $table) {
+                $table->id();
+                $table->foreignId('article_id')->constrained()->onDelete('cascade');
+                $table->foreignId('keyword_id')->constrained()->onDelete('cascade');
+                $table->timestamps();
+            });
+        }
+        
+        if (!Schema::hasTable('articles_users')) {            
+            Schema::create('articles_users', function (Blueprint $table) {
+                $table->id();
+                $table->foreignId('article_id')->constrained()->onDelete('cascade');
+                $table->foreignId('user_id')->constrained()->onDelete('cascade');
+                $table->timestamps();
+            });
+        }
+
+        if (!Schema::hasTable('posts_keywords')) {
+            Schema::create('posts_keywords', function (Blueprint $table) {
+                $table->id();
+                $table->foreignId('post_id')->constrained()->onDelete('cascade');
+                $table->foreignId('keyword_id')->constrained()->onDelete('cascade');
+                $table->timestamps();
+            });            
+        }
+        
     }
 
     /**
@@ -264,6 +302,15 @@ return new class extends Migration
             'roles',
             'posts_tags',
             'articles_tags',
+            'posts_comments',
+            'articles_comments',
+            'posts_images',
+            'articles_images',
+            'articles_keywords',
+            'posts_keywords',
+            'articles_users',
+            'posts_users'
+
         );
 
     }
