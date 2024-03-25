@@ -71,17 +71,17 @@ class Article extends Model
         return $this->fieldTypes = [
             'title' => 'text',
             'slug' => 'text',
-            'images' => 'text',
-            'body' => 'textarea',
-            'user_id' => 'text',
-            'category_id' => 'text',
-            'docType' => 'text',
-            'published_at' => 'text',
-            'is_published' => 'text',
-            'is_public' => 'text',
-            'created_at' => 'text',
-            'updated_at' => 'text',
-            'keywords' => 'text',
+            'images' => 'image[multiple]',
+            'body' => 'textarea[rows=10]',
+            'user_id' => 'number',
+            'category_id' => 'number',
+            'docType' => 'text[max=255]',
+            'published_at' => 'datetime-local',
+            'is_published' => 'checkbox',
+            'is_public' => 'checkbox[checked=checked]',
+            'created_at' => 'datetime-local[readonly]',
+            'updated_at' => 'datetime-local[readonly]',
+            'keywords' => 'text[multiple][max=255]',
         ];
     }
 
