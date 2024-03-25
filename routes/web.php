@@ -3,9 +3,6 @@
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CommentController;
-use App\Http\Controllers\GeneralInfo\AboutController;
-use App\Http\Controllers\GeneralInfo\ContactController;
-use App\Http\Controllers\GeneralInfo\PrivacyController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\KeywordController;
 use App\Http\Controllers\PermissionController;
@@ -16,7 +13,9 @@ use App\Http\Controllers\SettingController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\GeneralInfo\AboutController;
+use App\Http\Controllers\GeneralInfo\ContactController;
+use App\Http\Controllers\GeneralInfo\PrivacyController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes

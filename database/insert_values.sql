@@ -10,45 +10,40 @@
  });
  */
 -- database\insert_values.sql: Bcrypt algorithm is used to hash passwords.
-INSERT INTO users
+INSERT INTO users (name, email, password, created_at, updated_at)
 VALUES (
-
-        NULL,
         'Ali',
         'asafarim+ali@gmail.com',
-        '2022-12-05 09:30:00',
         '$2y$10$.HhQ0uz2kW2PeVPqCPxXAO4gy9I/QumCHGenWe3x8zD63vpfcCxP2',
-        NULL,
-        '2022-12-05 09:30:00',
+        '2023-12-05 09:30:00',
         NULL
     ),
     (
-        NULL,
         'Kian',
         'asafarim+kian@gmail.com',
-        '2022-12-05 09:30:00',
         '$2y$10$ay8fdfcr5ekhzhRiTNmXbuXTuQtqtWNm8uano7/qGtY8pEN1QL7H2',
-        NULL,
         '2022-12-05 09:30:00',
         NULL
     ),
     (
-        NULL,
         'Tara',
         'asafarim+tara@gmail.com',
         '2022-12-05 09:30:00',
-        '$2y$10$V73.9YAP91gMR47B4hrmS.lbUzHSf6zLQ3QY4sySnzLGBtGhL4Q7e',
-        NULL,
+        '$2y$10$XwahSHw3OoxXjitOrg526OAlsJ5jcAzWk4y4xoU8UL10C9ysVFKm.',
         '2022-12-05 09:30:00',
         NULL
     ),
     (
-        NULL,
         'Anja',
         'asafarim+anja@gmail.com',
-        '2022-12-05 09:30:00',
         '$2y$10$XwahSHw3OoxXjitOrg526OAlsJ5jcAzWk4y4xoU8UL10C9ysVFKm.',
-        NULL,
+        '2022-12-05 09:30:00',
+        NULL
+    ),
+    (
+        'Sara',
+        'asafarim+sara@gmail.com',
+        '$2y$10$XwahSHw3OoxXjitOrg526OAlsJ5jcAzWk4y4xoU8UL10C9ysVFKm.',
         '2022-12-05 09:30:00',
         NULL
     );

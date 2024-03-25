@@ -21,7 +21,7 @@ class ArticleController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->models =  Article::all();
+        $this->models =  $this->model::all();
         $this->viewFolder = $this->rootFolder . '.' . $this->tableName;
     }
     public function index()
